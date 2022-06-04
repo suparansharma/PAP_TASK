@@ -3,7 +3,7 @@ import './App.css';
 import { useState } from 'react';
 import firebaseConfig from './firebase.config';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider,signOut  } from "firebase/auth";
 
 function App() {
   const app = initializeApp(firebaseConfig)
@@ -73,10 +73,25 @@ signInWithPopup(auth, googleProvider)
      setUser(newUserInfo);
     }
   };
+
+  const handleGoogleSignOut = () => {
+    const auth = getAuth();
+signOut(auth).then(() => {
+  const signedOutUser = {
+    isSignedIn: false,
+    name: '',
+    email: '',
+    password: '',
+    photo: '',
+  }
+  setUser(signedOutUser);
+}).catch((error) => {
+  // An error happened.
+});}
   return (
     <div className="App">
-
-      <button onClick={handleGoogleSignIn}>Google SignIn</button>
+      {user.isSignedIn ? <button onClick={handleGoogleSignOut}>Google SignOut</button>:
+      <button onClick={handleGoogleSignIn}>Google SignIn</button>}
 
       {
         user.isSignedIn && <div>
