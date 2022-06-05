@@ -10,6 +10,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
 
 function App() {
@@ -106,6 +107,7 @@ function App() {
           newUserInfo.error = '';
           newUserInfo.success = true;
           setUser(newUserInfo);
+          updateUserName(user.name);
           
           // ...
         })
@@ -129,6 +131,7 @@ function App() {
           newUserInfo.error = '';
           newUserInfo.success = true;
           setUser(newUserInfo);
+          console.log("sign is user info",userCredential.user);
     // ...
   })
   .catch((error) => {
@@ -187,6 +190,23 @@ const matchPassword = () => {
 
 
 
+//Send name in information to firebase start
+const updateUserName = name => {
+        const auth = getAuth();
+      updateProfile(auth.currentUser, {
+        displayName: name
+      }).then(() => {
+        console.log('User name updated successfully');
+      }).catch((error) => {
+        // An error occurred
+        console.log(error);
+        // ...
+      });
+      }
+
+
+//Send name in information to firebase end
+
 
 
 
@@ -216,7 +236,7 @@ const matchPassword = () => {
 
 
         <input type="checkbox" onChange={()=>setNewUser(!newUser)} name="newUser" id=''></input>
-
+        <label htmlFor="newUser" >New User Sign up</label>
 
 
       <form onSubmit={handleSubmit}>
@@ -244,7 +264,7 @@ const matchPassword = () => {
           required
         />
         <br />
-        <input type="submit" value="Submit" />
+        <input type="submit" value={newUser?'Sign up' : 'Sign in'}/>
         {/* <input type="password" name="ValidPassword" onBlur={handleBlur} placeholder='Password:A-Za-z' id='pswd2' required/><br/>
         <button type="submit" onClick={matchPassword}>Submit</button> */}
       </form>
