@@ -9,10 +9,12 @@ import {
   GoogleAuthProvider,
   signOut,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 
 function App() {
 
+  const[newUser,setNewUser] = useState(false);
 
   const app = initializeApp(firebaseConfig);
   const [user, setUser] = useState({
@@ -95,7 +97,7 @@ function App() {
   //Create User method Start
 
   const handleSubmit = (e) => {
-    if (user.email && user.password) {
+    if (newUser && user.email && user.password) {
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, user.email, user.password)
         .then((userCredential) => {
@@ -117,6 +119,25 @@ function App() {
         });
     }
     e.preventDefault();
+    if(!newUser && user.email && user.password){
+      const auth = getAuth();
+     signInWithEmailAndPassword(auth, user.email, user.password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+         const newUserInfo = {...user};
+          newUserInfo.error = '';
+          newUserInfo.success = true;
+          setUser(newUserInfo);
+    // ...
+  })
+  .catch((error) => {
+    const newUserInfo = {...user};
+    newUserInfo.error = error.message;
+    newUserInfo.success = false;
+     setUser(newUserInfo);
+  });
+    }
   };
 
 
@@ -191,14 +212,21 @@ const matchPassword = () => {
       <p>Email:{user.email}</p>
       <p>Password:{user.password}</p>
       <p>Name:{user.name}</p>
+
+
+
+        <input type="checkbox" onChange={()=>setNewUser(!newUser)} name="newUser" id=''></input>
+
+
+
       <form onSubmit={handleSubmit}>
-        <input
+      { newUser &&  <input
           type="text"
           name="name"
           onBlur={handleBlur}
           placeholder="Enter Your Name Address"
           required
-        /> <br/>
+        />} <br/>
         <input
           type="text"
           name="email"
@@ -224,7 +252,7 @@ const matchPassword = () => {
 
       <p style={{color:'red'}}>{user.error}</p>
       {
-        user.success && <p style={{color:'green'}}>User Created Successfully</p>
+        user.success && <p style={{color:'green'}}>User {newUser ? 'Created':'Logged In'} Successfully</p>
       }
 
     </div>
