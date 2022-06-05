@@ -11,6 +11,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  FacebookAuthProvider,
 } from 'firebase/auth';
 
 function App() {
@@ -210,6 +211,37 @@ const updateUserName = name => {
 
 
 
+
+//Facebook Sign In method Start
+
+const fbProvider = new FacebookAuthProvider();
+const hadleFacebookSignIn =() =>{
+  const auth = getAuth();
+signInWithPopup(auth, fbProvider)
+  .then((result) => {
+    // The signed-in user info.
+    const user = result.user;
+
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    const credential = FacebookAuthProvider.credentialFromResult(result);
+    const accessToken = credential.accessToken;
+    console.log("Fb user after sign in",user);
+    // ...
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = FacebookAuthProvider.credentialFromError(error);
+
+    // ...
+  });
+}
+
+
   return (
     <div className="App">
       {/* Google Sign In method Start */}
@@ -218,6 +250,8 @@ const updateUserName = name => {
       ) : (
         <button onClick={handleGoogleSignIn}>Google SignIn</button>
       )}
+<br/>
+      <button onClick={hadleFacebookSignIn}>Sign in using Facebook</button>
 
       {user.isSignedIn && (
         <div>
