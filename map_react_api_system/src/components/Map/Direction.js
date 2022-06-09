@@ -1,5 +1,5 @@
-import React from 'react'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import React, { useState } from 'react'
+import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '700px',
@@ -12,11 +12,12 @@ const location = {
   lng: 90.419049
 };
 
-const onLoad = marker => {
-    console.log('marker: ', marker)
-  }
 
 function Direction() {
+
+
+const [directionResponse, setDirectionResponse] =useState(null);
+
   return (
     <LoadScript
       googleMapsApiKey="AIzaSyAlLvZr-xXGkQuzjj2tSmOzCKQMahFLh4U"
@@ -26,11 +27,38 @@ function Direction() {
         center={location}
         zoom={16}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
-        {/* <Marker
-      onLoad={onLoad}
-      position={location}
-    /> */}
+
+
+<DirectionsService
+                  // required
+                  options={{
+                    destination: this.state.destination,
+                    origin: this.state.origin,
+                    travelMode: 'DRIVING'
+                  }}
+                  // required
+                  callback={
+                      res =>{
+                          if(res !== null){
+                              setDirectionResponse(res);
+                          }
+                      }
+                  }
+                 
+                />
+
+
+
+
+{
+    directionResponse &&<DirectionsRenderer
+    // required
+    options={{ 
+      directions: this.state.response
+    }}
+    
+  />
+}
       </GoogleMap>
     </LoadScript>
   )
