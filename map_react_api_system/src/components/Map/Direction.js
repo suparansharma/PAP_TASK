@@ -32,8 +32,8 @@ const [directionResponse, setDirectionResponse] =useState(null);
 <DirectionsService
                   // required
                   options={{
-                    destination: this.state.destination,
-                    origin: this.state.origin,
+                    destination: "Gulsan 1 circle Dhaka Bangladesh",
+                    origin: "Bannai 11 City Bank Dhaka Bangladesh",
                     travelMode: 'DRIVING'
                   }}
                   // required
@@ -54,7 +54,7 @@ const [directionResponse, setDirectionResponse] =useState(null);
     directionResponse &&<DirectionsRenderer
     // required
     options={{ 
-      directions: this.state.response
+      directions: directionResponse
     }}
     
   />
