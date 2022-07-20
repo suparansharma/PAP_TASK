@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="style.css">
+    <title>Auto Complete</title>
+</head>
+<body>
+    <section>
+      <div class="container">
+        <div class="input-group">
+            <input type="text" name="" id="autoComplete" placeholder="search items">
+            <ul id="results">
+
+            </ul>
+        </div>
+      </div>
+    </section>
+    
+</body>
+
+<script>
+    const users =["jodhu","modhu","kodhu","apple","komla","kola","lichu"];
+    const autoComplete = document.getElementById('autoComplete');
+    const resultHtml = document.getElementById('results');
+    autoComplete.oninput = function(){
+        let results = [];
+        const userInput = this.value;
+        resultHtml.innerHTML = ""
+        if(userInput.length > 0){
+            users.forEach((curData) =>{
+                console.log('the value is ',curData)
+                if( userInput === curData.slice(0,userInput.length)){
+                   let splitUser = curData.split('\n');
+                    // resultHtml.innerHTML +="<li> <p>" + splitUser[0]+"<small>" +splitUser[1] + " </p></small></li>";
+                    resultHtml.innerHTML +="<li>" +curData +"</li>";
+                   
+
+                }
+               
+            })
+        }
+    }
+
+    resultHtml.onclick = function (e){
+        autoComplete.value = e.target.parentElement.dataset.name;
+        this.innerHTML = "";
+    }
+</script>
+</html>

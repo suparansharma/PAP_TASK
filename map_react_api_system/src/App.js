@@ -6,8 +6,8 @@ import Direction from './components/Map/Direction';
 function App() {
   return (
     <div className="App">
-     <Map></Map>
-     {/* <Direction></Direction> */}
+     {/* <Map></Map> */}
+     <Direction></Direction>
     </div>
   );
 }

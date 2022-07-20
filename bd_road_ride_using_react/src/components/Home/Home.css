@@ -1,0 +1,77 @@
+.rowOfhome{
+margin-left: 8%;
+margin-top: 10%;
+grid-gap: 1%;
+
+}
+
+.singleColum{
+    background-color: white;
+    height: 30%;
+    width: 23%;
+    text-align: center;
+    
+   
+}
+
+.rideName{
+    text-decoration: none;
+    color: rgb(39, 38, 38);
+}
+
+img{
+    height: 202px;
+    width: 113px;
+    margin-top: 11%;
+    margin-bottom: 6%;
+}
+
+body{
+
+    background-image: url('../../images/Bg.png');
+  background-size:100% 700px;
+  background-repeat: no-repeat;
+}
+
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    body{
+
+        background-image: url('../../images/Bg.png');
+      background-size:100% 700px;
+      background-repeat: no-repeat;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {
+    body{
+
+      
+      background-size:100% 1000px;
+      background-repeat: no-repeat;
+    }
+
+
+    .rowOfhome{
+        margin-left:15%;
+        margin-top: 15%;
+        grid-gap: 2%;
+        
+        }
+}
+ */
